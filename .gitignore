@@ -30,7 +30,9 @@
 .pub-cache/
 .pub/
 /build/
-
+settings.json
+rest_api/ncov_2019_api.http
+lib/app/services/api_keys.dart
 # Web related
 lib/generated_plugin_registrant.dart
 
