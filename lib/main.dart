@@ -3,9 +3,14 @@ import 'package:covid19_app/app/services/api.dart';
 import 'package:covid19_app/app/services/api_service.dart';
 import 'package:covid19_app/app/ui/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  //Intl.defaultLocale = 'ar_DZ';
+  Intl.defaultLocale = 'fr';
+  await initializeDateFormatting();
   runApp(MyApp());
 }
 
@@ -61,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
       accessToken: accessToken,
       endpoint: Endpoint.cases,
     );
-    setState(() {
-      _counter = accessToken;
-      _cases = cases;
-    });
+    // setState(() {
+    //   _counter = accessToken;
+    //   _cases = cases;
+    // });
   }
 
   @override

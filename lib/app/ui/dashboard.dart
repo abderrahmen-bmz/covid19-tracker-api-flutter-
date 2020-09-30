@@ -2,6 +2,7 @@ import 'package:covid19_app/app/repositories/data_repositories.dart';
 import 'package:covid19_app/app/repositories/endpoint_data.dart';
 import 'package:covid19_app/app/services/api.dart';
 import 'package:covid19_app/app/ui/endpoint_card.dart';
+import 'package:covid19_app/app/ui/last_updated_status_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   EndpointsData _endpointsData;
- // int _cases;
+  // int _cases;
   Future<void> _updateData() async {
     final dataRepository = Provider.of<DataRepositories>(
       context,
@@ -32,7 +33,15 @@ class _DashboardState extends State<Dashboard> {
   }
 
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
+
+   final formatter = LastUpdatedDateFormatter(
+      lastUpdated: _endpointsData != null
+          ? _endpointsData.values[Endpoint.cases].date
+          : null,
+    );
+
+   
     return Scaffold(
       appBar: AppBar(
         title: Text('COVID-19 Tracker'),
@@ -41,11 +50,17 @@ class _DashboardState extends State<Dashboard> {
         onRefresh: _updateData,
         child: ListView(
           children: <Widget>[
-           for (var endpoint in Endpoint.values)
+            LastUpdatedStatusText(
+              text: formatter.lastUpdatedStatusText(),
+              // text:  _endpointsData != null
+              //       ? _endpointsData.values[Endpoint.cases].date?.toString() ?? ''
+              //       : '',
+            ),
+            for (var endpoint in Endpoint.values)
               EndpointCard(
                 endpoint: endpoint,
                 value: _endpointsData != null
-                    ? _endpointsData.values[endpoint]
+                    ? _endpointsData.values[endpoint].value
                     : null,
               ),
           ],
