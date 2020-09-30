@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class EndpointCard extends StatelessWidget {
   const EndpointCard({
     Key key,
-    this.endpoint,
-    this.value,
+   @required this.endpoint,
+   @required this.value,
   }) : super(key: key);
 
   final Endpoint endpoint;
