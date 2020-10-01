@@ -21,8 +21,8 @@ class API {
       );
 
   static final String host = 'ncov2019-admin.firebaseapp.com';
-  static final int port =  443;
-  static final String basePath = 't/nubentos.com/ncovapi/1.0.0';
+ // static final int port =  443;
+ // static final String basePath = 't/nubentos.com/ncovapi/1.0.0';
 
   Uri tokenUri() => Uri(
         scheme: 'https',

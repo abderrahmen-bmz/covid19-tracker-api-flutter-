@@ -4,7 +4,7 @@ import 'package:covid19_app/app/services/endpoint_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'api.dart';
-// make requests   parse responses
+// make requests and  parse responses
 class APIService {
    APIService(this.api);
   final API api;
