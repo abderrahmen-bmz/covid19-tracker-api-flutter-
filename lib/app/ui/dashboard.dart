@@ -48,6 +48,8 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    final dataRepositories = Provider.of<DataRepositories>(context,listen: false);
+    _endpointsData = dataRepositories.getAllEndpointsCachedData();
     _updateData();
   }
 
@@ -55,7 +57,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final formatter = LastUpdatedDateFormatter(
       lastUpdated: _endpointsData != null
-          ? _endpointsData.values[Endpoint.cases].date
+          ? _endpointsData.values[Endpoint.cases]?.date
           : null,
     );
 
@@ -70,14 +72,14 @@ class _DashboardState extends State<Dashboard> {
             LastUpdatedStatusText(
               text: formatter.lastUpdatedStatusText(),
               // text:  _endpointsData != null
-              //       ? _endpointsData.values[Endpoint.cases].date?.toString() ?? ''
+           //   //       ? _endpointsData.values[Endpoint.cases].date?.toString() ?? ''
               //       : '',
             ),
             for (var endpoint in Endpoint.values)
               EndpointCard(
                 endpoint: endpoint,
                 value: _endpointsData != null
-                    ? _endpointsData.values[endpoint].value
+                    ? _endpointsData.values[endpoint]?.value
                     : null,
               ),
           ],

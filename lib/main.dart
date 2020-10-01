@@ -1,20 +1,33 @@
 import 'package:covid19_app/app/repositories/data_repositories.dart';
 import 'package:covid19_app/app/services/api.dart';
 import 'package:covid19_app/app/services/api_service.dart';
+import 'package:covid19_app/app/services/data_cach_service.dart';
 import 'package:covid19_app/app/ui/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   //Intl.defaultLocale = 'ar_DZ';
   Intl.defaultLocale = 'fr';
   await initializeDateFormatting();
-  runApp(MyApp());
+  final sharedPreferences = await SharedPreferences.getInstance();
+  runApp(
+    MyApp(sharedPreferences: sharedPreferences),
+  );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({
+    Key key,
+    @required this.sharedPreferences,
+  }) : super(key: key);
+
+  final SharedPreferences sharedPreferences;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -22,6 +35,9 @@ class MyApp extends StatelessWidget {
       create: (_) => DataRepositories(
         apiService: APIService(
           API.sandbox(),
+        ),
+        dataCacheService: DataCacheService(
+          sharedPreferences: sharedPreferences,
         ),
       ),
       child: MaterialApp(
